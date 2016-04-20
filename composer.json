@@ -1,12 +1,36 @@
 {
-    "name": "root/flarum-notify",
-    "description": "Get notified about forum activity via Slack, Hipchat or Gitter.",
+    "name": "moay/flarum-ext-notify",
+    "description": "Get notified about forum activity in Slack, Hipchat or Gitter.",
+    "type": "flarum-extension",
     "license": "MIT",
+    "require": {
+        "flarum/core": "^0.1.0-beta.5",
+        "cleentfaar/slack": "^0.17",
+        "gorkalaucirica/hipchat-v2-api-client": "^1",
+        "guzzlehttp/guzzle": "^6.1"
+    },
     "authors": [
         {
-            "name": "moay",
+            "name": "Moay",
             "email": "mv@moay.de"
         }
     ],
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "Moay\\Notify\\": "src/"
+        }
+    },
+     "extra": {
+        "flarum-extension": {
+            "title": "Notify",
+            "icon": {
+                "name": "bell",
+                "backgroundColor": "#640049",
+                "backgroundSize": "100%",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "center",
+                "color": "#fff"
+            }
+        }
+    }
 }
