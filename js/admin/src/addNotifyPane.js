@@ -1,8 +1,7 @@
-import app from 'flarum/app';
 import { extend } from 'flarum/extend';
-import AdminNav from 'flarum/components/AdminNav';
-
 import AdminLinkButton from 'flarum/components/AdminLinkButton';
+import AdminNav from 'flarum/components/AdminNav';
+import app from 'flarum/app';
 import NotifyPage from 'moay/flarum-notify/components/NotifyPage';
 
 export default function() {
