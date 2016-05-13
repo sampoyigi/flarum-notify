@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Moay\Notify\ApiRoutes;
+use Moay\Notify\Listeners\RegisterApiRoutes;
 use Moay\Notify\Listeners\AddClientAssets;
 use Moay\Notify\Listeners\DiscussionWasDeletedListener;
 use Moay\Notify\Listeners\DiscussionWasStartedListener;
@@ -19,5 +19,5 @@ return function (Dispatcher $events) {
     $events->subscribe(PostWasPostedListener::class);
 
     // Add API routes
-    $events->subscribe(ApiRoutes::class);
+    $events->subscribe(RegisterApiRoutes::class);
 };

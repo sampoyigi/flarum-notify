@@ -1,9 +1,9 @@
-<?php namespace Moay\Notify;
+<?php namespace Moay\Notify\Listeners;
 
 use Flarum\Event\ConfigureApiRoutes;
 use Moay\Notify\Api\ConnectorTest;
 
-class ApiRoutes
+class RegisterApiRoutes
 {
     public function subscribe($events)
     {
