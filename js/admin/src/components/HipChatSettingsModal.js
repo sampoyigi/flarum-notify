@@ -7,8 +7,8 @@ export default class HipChatSettingsModal extends Modal {
   constructor(...args) {
     super(...args);
 
-    this.token = m.prop(app.settings['notify.hipchat.token'] || '');
-    this.room = m.prop(app.settings['notify.hipchat.room'] || '');
+    this.token = m.prop(app.data.settings['notify.hipchat.token'] || '');
+    this.room = m.prop(app.data.settings['notify.hipchat.room'] || '');
   }
 
   className() {

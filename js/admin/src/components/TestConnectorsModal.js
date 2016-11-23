@@ -7,15 +7,15 @@ export default class TestConnectorsModal extends Modal {
     super(...args);
 
     this.slack = {};
-    this.slack.token = m.prop(app.settings['notify.slack.token'] || '');
-    this.slack.channel = m.prop(app.settings['notify.slack.channel'] || '');
+    this.slack.token = m.prop(app.data.settings['notify.slack.token'] || '');
+    this.slack.channel = m.prop(app.data.settings['notify.slack.channel'] || '');
 
     this.hipchat = {};
-    this.hipchat.token = m.prop(app.settings['notify.hipchat.token'] || '');
-    this.hipchat.room = m.prop(app.settings['notify.hipchat.room'] || '');
+    this.hipchat.token = m.prop(app.data.settings['notify.hipchat.token'] || '');
+    this.hipchat.room = m.prop(app.data.settings['notify.hipchat.room'] || '');
 
     this.gitter = {};
-    this.gitter.webhook = m.prop(app.settings['notify.gitter.webhook'] || '');
+    this.gitter.webhook = m.prop(app.data.settings['notify.gitter.webhook'] || '');
 
     this.testStatus = m.prop('Preparing...');
 

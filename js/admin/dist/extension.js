@@ -1,16 +1,16 @@
-System.register('moay/flarum-notify/addNotifyPane', ['flarum/app', 'flarum/extend', 'flarum/components/AdminNav', 'flarum/components/AdminLinkButton', 'moay/flarum-notify/components/NotifyPage'], function (_export) {
+System.register('moay/flarum-notify/addNotifyPane', ['flarum/extend', 'flarum/components/AdminLinkButton', 'flarum/components/AdminNav', 'flarum/app', 'moay/flarum-notify/components/NotifyPage'], function (_export) {
   'use strict';
 
-  var app, extend, AdminNav, AdminLinkButton, NotifyPage;
+  var extend, AdminLinkButton, AdminNav, app, NotifyPage;
   return {
-    setters: [function (_flarumApp) {
-      app = _flarumApp['default'];
-    }, function (_flarumExtend) {
+    setters: [function (_flarumExtend) {
       extend = _flarumExtend.extend;
-    }, function (_flarumComponentsAdminNav) {
-      AdminNav = _flarumComponentsAdminNav['default'];
     }, function (_flarumComponentsAdminLinkButton) {
       AdminLinkButton = _flarumComponentsAdminLinkButton['default'];
+    }, function (_flarumComponentsAdminNav) {
+      AdminNav = _flarumComponentsAdminNav['default'];
+    }, function (_flarumApp) {
+      app = _flarumApp['default'];
     }, function (_moayFlarumNotifyComponentsNotifyPage) {
       NotifyPage = _moayFlarumNotifyComponentsNotifyPage['default'];
     }],
@@ -60,7 +60,7 @@ System.register('moay/flarum-notify/components/GitterSettingsModal', ['flarum/co
 
           babelHelpers.get(Object.getPrototypeOf(GitterSettingsModal.prototype), 'constructor', this).apply(this, args);
 
-          this.webhook = m.prop(app.settings['notify.gitter.webhook'] || '');
+          this.webhook = m.prop(app.data.settings['notify.gitter.webhook'] || '');
         }
 
         babelHelpers.createClass(GitterSettingsModal, [{
@@ -164,8 +164,8 @@ System.register('moay/flarum-notify/components/HipChatSettingsModal', ['flarum/c
 
           babelHelpers.get(Object.getPrototypeOf(HipChatSettingsModal.prototype), 'constructor', this).apply(this, args);
 
-          this.token = m.prop(app.settings['notify.hipchat.token'] || '');
-          this.room = m.prop(app.settings['notify.hipchat.room'] || '');
+          this.token = m.prop(app.data.settings['notify.hipchat.token'] || '');
+          this.room = m.prop(app.data.settings['notify.hipchat.room'] || '');
         }
 
         babelHelpers.createClass(HipChatSettingsModal, [{
@@ -327,7 +327,7 @@ System.register('moay/flarum-notify/components/NotifyPage', ['flarum/components/
              *
              * @type {String}
              */
-            this.settingsPrefix = 'moay.flarum-notify.';
+            this.settingsPrefix = 'flarum-notify.';
 
             /**
              * The items.
@@ -339,7 +339,7 @@ System.register('moay/flarum-notify/components/NotifyPage', ['flarum/components/
              *
              */
             this.fields.forEach(function (key) {
-              return _this.values[key] = m.prop(app.settings[_this.settingsPrefix + key]);
+              return _this.values[key] = m.prop(app.data.settings[_this.settingsPrefix + key]);
             });
           }
         }, {
@@ -595,134 +595,134 @@ System.register('moay/flarum-notify/components/NotifyPage', ['flarum/components/
     }
   };
 });;
-System.register('moay/flarum-notify/components/SlackSettingsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/saveSettings', 'flarum/components/Alert'], function (_export) {
-  'use strict';
+System.register('moay/flarum-notify/components/SlackSettingsModal', ['flarum/components/Alert', 'flarum/components/Button', 'flarum/components/Modal', 'flarum/utils/saveSettings'], function (_export) {
+    'use strict';
 
-  var Modal, Button, saveSettings, Alert, SlackSettingsModal;
-  return {
-    setters: [function (_flarumComponentsModal) {
-      Modal = _flarumComponentsModal['default'];
-    }, function (_flarumComponentsButton) {
-      Button = _flarumComponentsButton['default'];
-    }, function (_flarumUtilsSaveSettings) {
-      saveSettings = _flarumUtilsSaveSettings['default'];
-    }, function (_flarumComponentsAlert) {
-      Alert = _flarumComponentsAlert['default'];
-    }],
-    execute: function () {
-      SlackSettingsModal = (function (_Modal) {
-        babelHelpers.inherits(SlackSettingsModal, _Modal);
+    var Alert, Button, Modal, saveSettings, SlackSettingsModal;
+    return {
+        setters: [function (_flarumComponentsAlert) {
+            Alert = _flarumComponentsAlert['default'];
+        }, function (_flarumComponentsButton) {
+            Button = _flarumComponentsButton['default'];
+        }, function (_flarumComponentsModal) {
+            Modal = _flarumComponentsModal['default'];
+        }, function (_flarumUtilsSaveSettings) {
+            saveSettings = _flarumUtilsSaveSettings['default'];
+        }],
+        execute: function () {
+            SlackSettingsModal = (function (_Modal) {
+                babelHelpers.inherits(SlackSettingsModal, _Modal);
 
-        function SlackSettingsModal() {
-          babelHelpers.classCallCheck(this, SlackSettingsModal);
+                function SlackSettingsModal() {
+                    babelHelpers.classCallCheck(this, SlackSettingsModal);
 
-          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-          }
+                    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                        args[_key] = arguments[_key];
+                    }
 
-          babelHelpers.get(Object.getPrototypeOf(SlackSettingsModal.prototype), 'constructor', this).apply(this, args);
+                    babelHelpers.get(Object.getPrototypeOf(SlackSettingsModal.prototype), 'constructor', this).apply(this, args);
 
-          this.token = m.prop(app.settings['notify.slack.token'] || '');
-          this.channel = m.prop(app.settings['notify.slack.channel'] || '#general');
-          this.username = m.prop(app.settings['notify.slack.username'] || 'Flarum');
+                    this.token = m.prop(app.data.settings['notify.slack.token'] || '');
+                    this.channel = m.prop(app.data.settings['notify.slack.channel'] || '#general');
+                    this.username = m.prop(app.data.settings['notify.slack.username'] || 'Flarum');
+                }
+
+                babelHelpers.createClass(SlackSettingsModal, [{
+                    key: 'className',
+                    value: function className() {
+                        return 'SlackSettingsModal Modal--small';
+                    }
+                }, {
+                    key: 'title',
+                    value: function title() {
+                        return app.translator.trans('flaruam-notify.admin.slack-modal.title');
+                    }
+                }, {
+                    key: 'content',
+                    value: function content() {
+                        return m(
+                            'div',
+                            { className: 'Modal-body' },
+                            m(
+                                'div',
+                                { className: 'Form' },
+                                m(
+                                    'div',
+                                    { className: 'Form-group' },
+                                    m(
+                                        'label',
+                                        null,
+                                        app.translator.trans('flarum-notify.admin.slack-modal.token')
+                                    ),
+                                    m('input', { className: 'FormControl', value: this.token(), oninput: m.withAttr('value', this.token) })
+                                ),
+                                m(
+                                    'div',
+                                    { className: 'Form-group' },
+                                    m(
+                                        'label',
+                                        null,
+                                        app.translator.trans('flarum-notify.admin.slack-modal.channel')
+                                    ),
+                                    m('input', { className: 'FormControl', value: this.channel(), oninput: m.withAttr('value', this.channel) })
+                                ),
+                                m(
+                                    'div',
+                                    { className: 'Form-group' },
+                                    m(
+                                        'label',
+                                        null,
+                                        app.translator.trans('flarum-notify.admin.slack-modal.username')
+                                    ),
+                                    m('input', { className: 'FormControl', value: this.username(), oninput: m.withAttr('value', this.username) })
+                                ),
+                                m(
+                                    'p',
+                                    null,
+                                    app.translator.trans('flarum-notify.admin.slack-modal.description', { a: m('a', { href: 'https://api.slack.com/web', tabindex: '-1', target: '_new' }) })
+                                ),
+                                m('hr', null),
+                                m(
+                                    'div',
+                                    { className: 'Form-group' },
+                                    Button.component({
+                                        type: 'submit',
+                                        className: 'Button Button--primary SlackSettingsModal-save',
+                                        loading: this.loading,
+                                        children: 'Save Changes'
+                                    })
+                                )
+                            )
+                        );
+                    }
+                }, {
+                    key: 'onsubmit',
+                    value: function onsubmit(e) {
+                        var _this = this;
+
+                        e.preventDefault();
+
+                        this.loading = true;
+                        app.alerts.dismiss(this.testResultAlert);
+
+                        saveSettings({
+                            'notify.slack.token': this.token(),
+                            'notify.slack.channel': this.channel(),
+                            'notify.slack.username': this.username()
+                        }).then(function () {
+                            return _this.hide();
+                        }, function () {
+                            _this.loading = false;
+                            m.redraw();
+                        });
+                    }
+                }]);
+                return SlackSettingsModal;
+            })(Modal);
+
+            _export('default', SlackSettingsModal);
         }
-
-        babelHelpers.createClass(SlackSettingsModal, [{
-          key: 'className',
-          value: function className() {
-            return 'SlackSettingsModal Modal--small';
-          }
-        }, {
-          key: 'title',
-          value: function title() {
-            return app.translator.trans('flarum-notify.admin.slack-modal.title');
-          }
-        }, {
-          key: 'content',
-          value: function content() {
-            return m(
-              'div',
-              { className: 'Modal-body' },
-              m(
-                'div',
-                { className: 'Form' },
-                m(
-                  'div',
-                  { className: 'Form-group' },
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('flarum-notify.admin.slack-modal.token')
-                  ),
-                  m('input', { className: 'FormControl', value: this.token(), oninput: m.withAttr('value', this.token) })
-                ),
-                m(
-                  'div',
-                  { className: 'Form-group' },
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('flarum-notify.admin.slack-modal.channel')
-                  ),
-                  m('input', { className: 'FormControl', value: this.channel(), oninput: m.withAttr('value', this.channel) })
-                ),
-                m(
-                  'div',
-                  { className: 'Form-group' },
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('flarum-notify.admin.slack-modal.username')
-                  ),
-                  m('input', { className: 'FormControl', value: this.username(), oninput: m.withAttr('value', this.username) })
-                ),
-                m(
-                  'p',
-                  null,
-                  app.translator.trans('flarum-notify.admin.slack-modal.description', { a: m('a', { href: 'https://api.slack.com/web', tabindex: '-1', target: '_new' }) })
-                ),
-                m('hr', null),
-                m(
-                  'div',
-                  { className: 'Form-group' },
-                  Button.component({
-                    type: 'submit',
-                    className: 'Button Button--primary SlackSettingsModal-save',
-                    loading: this.loading,
-                    children: 'Save Changes'
-                  })
-                )
-              )
-            );
-          }
-        }, {
-          key: 'onsubmit',
-          value: function onsubmit(e) {
-            var _this = this;
-
-            e.preventDefault();
-
-            this.loading = true;
-            app.alerts.dismiss(this.testResultAlert);
-
-            saveSettings({
-              'notify.slack.token': this.token(),
-              'notify.slack.channel': this.channel(),
-              'notify.slack.username': this.username()
-            }).then(function () {
-              return _this.hide();
-            }, function () {
-              _this.loading = false;
-              m.redraw();
-            });
-          }
-        }]);
-        return SlackSettingsModal;
-      })(Modal);
-
-      _export('default', SlackSettingsModal);
-    }
-  };
+    };
 });;
 System.register('moay/flarum-notify/components/TestConnectorsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/lib/components/LoadingIndicator'], function (_export) {
   'use strict';
@@ -750,15 +750,15 @@ System.register('moay/flarum-notify/components/TestConnectorsModal', ['flarum/co
           babelHelpers.get(Object.getPrototypeOf(TestConnectorsModal.prototype), 'constructor', this).apply(this, args);
 
           this.slack = {};
-          this.slack.token = m.prop(app.settings['notify.slack.token'] || '');
-          this.slack.channel = m.prop(app.settings['notify.slack.channel'] || '');
+          this.slack.token = m.prop(app.data.settings['notify.slack.token'] || '');
+          this.slack.channel = m.prop(app.data.settings['notify.slack.channel'] || '');
 
           this.hipchat = {};
-          this.hipchat.token = m.prop(app.settings['notify.hipchat.token'] || '');
-          this.hipchat.room = m.prop(app.settings['notify.hipchat.room'] || '');
+          this.hipchat.token = m.prop(app.data.settings['notify.hipchat.token'] || '');
+          this.hipchat.room = m.prop(app.data.settings['notify.hipchat.room'] || '');
 
           this.gitter = {};
-          this.gitter.webhook = m.prop(app.settings['notify.gitter.webhook'] || '');
+          this.gitter.webhook = m.prop(app.data.settings['notify.gitter.webhook'] || '');
 
           this.testStatus = m.prop('Preparing...');
 
@@ -865,19 +865,19 @@ System.register('moay/flarum-notify/components/TestConnectorsModal', ['flarum/co
     }
   };
 });;
-System.register('moay/flarum-notify/main', ['flarum/extend', 'flarum/app', 'flarum/utils/saveSettings', 'moay/flarum-notify/addNotifyPane'], function (_export) {
+System.register('moay/flarum-notify/main', ['flarum/extend', 'moay/flarum-notify/addNotifyPane', 'flarum/app', 'flarum/utils/saveSettings'], function (_export) {
 	'use strict';
 
-	var extend, app, saveSettings, addNotifyPane;
+	var extend, addNotifyPane, app, saveSettings;
 	return {
 		setters: [function (_flarumExtend) {
 			extend = _flarumExtend.extend;
+		}, function (_moayFlarumNotifyAddNotifyPane) {
+			addNotifyPane = _moayFlarumNotifyAddNotifyPane['default'];
 		}, function (_flarumApp) {
 			app = _flarumApp['default'];
 		}, function (_flarumUtilsSaveSettings) {
 			saveSettings = _flarumUtilsSaveSettings['default'];
-		}, function (_moayFlarumNotifyAddNotifyPane) {
-			addNotifyPane = _moayFlarumNotifyAddNotifyPane['default'];
 		}],
 		execute: function () {
 

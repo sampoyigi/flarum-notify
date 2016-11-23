@@ -7,9 +7,9 @@ export default class SlackSettingsModal extends Modal {
     constructor(...args) {
         super(...args);
 
-        this.token = m.prop(app.settings['notify.slack.token'] || '');
-        this.channel = m.prop(app.settings['notify.slack.channel'] || '#general');
-        this.username = m.prop(app.settings['notify.slack.username'] || 'Flarum');
+        this.token = m.prop(app.data.settings['notify.slack.token'] || '');
+        this.channel = m.prop(app.data.settings['notify.slack.channel'] || '#general');
+        this.username = m.prop(app.data.settings['notify.slack.username'] || 'Flarum');
     }
 
     className() {
@@ -17,7 +17,7 @@ export default class SlackSettingsModal extends Modal {
     }
 
     title() {
-        return app.translator.trans('flarum-notify.admin.slack-modal.title');
+        return app.translator.trans('flaruam-notify.admin.slack-modal.title');
     }
 
     content() {
