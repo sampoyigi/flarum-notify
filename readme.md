@@ -6,6 +6,8 @@ Simple notifications for Flarum. Get notified about forum activities via Slack, 
 
 As flarum is moving quickly and the team still changes a lot of things, this plugin may change and not be stable from time to time.
 
+### Actually working for Flarum Beta 6 and Slack
+
 ## Setup
 
 Setup is quite simple. As there is no installer for flarum extensions yet, you will have to download the latest release. Just download the contained 'flarum-notify.zip', extract it and add the folder `notify`, which will be extracted from the archive, to your flarum extensions folder.
