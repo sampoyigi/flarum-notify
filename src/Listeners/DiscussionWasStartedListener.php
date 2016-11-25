@@ -1,6 +1,6 @@
 <?php namespace Moay\Notify\Listeners;
 
-use Flarum\Events\DiscussionWasStarted;
+use Flarum\Event\DiscussionWasStarted;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\DiscussionWasStartedMessage;
@@ -35,7 +35,7 @@ class DiscussionWasStartedListener extends NotificationListener
      */
     public function shouldTrigger(DiscussionWasStarted $event)
     {
-        if ($this->settings->get('notify.events.new_discussion') === '1') {
+        if ($this->settings->get('flarum-notify.newDiscussionEvent') === '1') {
             return true;
         }
         return false;

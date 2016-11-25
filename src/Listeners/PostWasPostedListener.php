@@ -1,6 +1,6 @@
 <?php namespace moay\Notify\Listeners;
 
-use Flarum\Events\PostWasPosted;
+use Flarum\Event\PostWasPosted;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\PostWasPostedMessage;
@@ -35,7 +35,7 @@ class PostWasPostedListener extends NotificationListener
      */
     public function shouldTrigger(PostWasPosted $event)
     {
-        if ($this->settings->get('notify.events.new_post') === '1'
+        if ($this->settings->get('flarum-notify.newPostEvent') === '1'
             && $event->post->discussion->posts()->count() > 1) {
             return true;
         }

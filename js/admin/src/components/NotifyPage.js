@@ -46,7 +46,7 @@ export default class NotifyPage extends Page {
        *
        * @type {String}
        */
-      this.settingsPrefix = 'moay.flarum-notify.';
+      this.settingsPrefix = 'flarum-notify.';
 
       /**
        * The items.
@@ -58,7 +58,7 @@ export default class NotifyPage extends Page {
        *
        */
       this.fields.forEach(
-          key => this.values[key] = m.prop(app.settings[this.settingsPrefix + key])
+          key => this.values[key] = m.prop(app.data.settings[this.settingsPrefix + key])
       );
   }
 

@@ -23,7 +23,7 @@ class NotificationListener
         $connectors = [];
 
         // Check for slack
-        if ($this->settings->get('notify.services.slack') &&
+        if ($this->settings->get('flarum-notify.slackEnabled') &&
             $this->settings->get('notify.slack.token') &&
             $this->settings->get('notify.slack.channel')
         ) {
@@ -31,7 +31,7 @@ class NotificationListener
         }
 
         // Check for HipChat
-        if ($this->settings->get('notify.services.hipchat') &&
+        if ($this->settings->get('flarum-notify.hipChatEnabled') &&
             $this->settings->get('notify.hipchat.token') &&
             $this->settings->get('notify.hipchat.room')
         ) {
@@ -39,7 +39,7 @@ class NotificationListener
         }
 
         // Check for Gitter
-        if ($this->settings->get('notify.services.gitter') &&
+        if ($this->settings->get('flarum-notify.gitterEnabled') &&
             $this->settings->get('notify.gitter.webhook')
         ) {
             $connectors[] = new GitterConnector($this->settings);

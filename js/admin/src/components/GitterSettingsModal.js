@@ -7,7 +7,7 @@ export default class GitterSettingsModal extends Modal {
     super(...args);
 
     this.webhook = m.prop(
-        app.settings['notify.gitter.webhook'] || ''
+        app.data.settings['notify.gitter.webhook'] || ''
     );
   }
 
