@@ -1,6 +1,6 @@
 <?php namespace Moay\Notify\Listeners;
 
-use Flarum\Events\PostWasDeleted;
+use Flarum\Event\PostWasDeleted;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\PostWasDeletedMessage;
@@ -35,7 +35,7 @@ class PostWasDeletedListener extends NotificationListener
      */
     public function shouldTrigger(PostWasDeleted $event)
     {
-        if ($this->settings->get('notify.events.post_deleted') === '1'
+        if ($this->settings->get('flarum-notify.postDeletedEvent') === '1'
             && $event->post->discussion
             && $event->post->discussion->posts()->count() != 0) {
             return true;

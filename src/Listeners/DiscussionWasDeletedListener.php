@@ -1,6 +1,6 @@
 <?php namespace Moay\Notify\Listeners;
 
-use Flarum\Events\DiscussionWasDeleted;
+use Flarum\Event\DiscussionWasDeleted;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\DiscussionWasDeletedMessage;
@@ -35,7 +35,7 @@ class DiscussionWasDeletedListener extends NotificationListener
      */
     public function shouldTrigger(DiscussionWasDeleted $event)
     {
-        if ($this->settings->get('notify.events.discussion_deleted') === '1') {
+        if ($this->settings->get('flarum-notify.discussionDeletedEvent') === '1') {
             return true;
         }
         return false;

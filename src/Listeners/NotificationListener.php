@@ -23,7 +23,7 @@ class NotificationListener
         $connectors = [];
 
         // Check for slack
-        if ($this->settings->get('notify.services.slack') &&
+        if ($this->settings->get('flarum-notify.slackEnabled') &&
             $this->settings->get('notify.slack.token') &&
             $this->settings->get('notify.slack.channel')
         ) {

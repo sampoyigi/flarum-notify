@@ -4,7 +4,7 @@
     "type": "flarum-extension",
     "license": "MIT",
     "require": {
-        "flarum/core": "^0.1.0-beta.5",
+        "flarum/core": "^0.1.0-beta.6",
         "cleentfaar/slack": "^0.17",
         "gorkalaucirica/hipchat-v2-api-client": "^1",
         "guzzlehttp/guzzle": "^6.1"

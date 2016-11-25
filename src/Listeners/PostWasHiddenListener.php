@@ -1,6 +1,6 @@
 <?php namespace Moay\Notify\Listeners;
 
-use Flarum\Events\PostWasHidden;
+use Flarum\Event\PostWasHidden;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\PostWasHiddenMessage;
@@ -35,7 +35,7 @@ class PostWasHiddenListener extends NotificationListener
      */
     public function shouldTrigger(PostWasHidden $event)
     {
-        if ($this->settings->get('notify.events.post_hidden') === '1') {
+        if ($this->settings->get('flarum-notify.postHiddenEvent') === '1') {
             return true;
         }
         return false;
