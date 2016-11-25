@@ -635,7 +635,7 @@ System.register('moay/flarum-notify/components/SlackSettingsModal', ['flarum/com
                 }, {
                     key: 'title',
                     value: function title() {
-                        return app.translator.trans('flaruam-notify.admin.slack-modal.title');
+                        return app.translator.trans('flarum-notify.admin.slack-modal.title');
                     }
                 }, {
                     key: 'content',

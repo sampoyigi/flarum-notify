@@ -17,7 +17,7 @@ export default class SlackSettingsModal extends Modal {
     }
 
     title() {
-        return app.translator.trans('flaruam-notify.admin.slack-modal.title');
+        return app.translator.trans('flarum-notify.admin.slack-modal.title');
     }
 
     content() {
