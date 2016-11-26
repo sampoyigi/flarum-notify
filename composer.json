@@ -1,5 +1,5 @@
 {
-    "name": "moay/flarum-ext-notify",
+    "name": "manelizzard/flarum-ext-notify",
     "description": "Get notified about forum activity in Slack, Hipchat or Gitter.",
     "type": "flarum-extension",
     "license": "MIT",
@@ -13,6 +13,10 @@
         {
             "name": "Moay",
             "email": "mv@moay.de"
+        },
+        {
+            "name": "Manel",
+            "email": "manelizzard@gmail.com"
         }
     ],
     "autoload": {
