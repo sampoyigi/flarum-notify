@@ -32,10 +32,6 @@ class SlackConnector extends Connector implements ConnectorInterface
             $this->settings->get('notify.slack.channel')
         );
 
-        $this->payload->setIconUrl(
-            app('flarum.config')['url'] . $this->iconLocation
-        );
-
         $this->payload->setUsername(
             $this->settings->get('notify.slack.username')
         );
