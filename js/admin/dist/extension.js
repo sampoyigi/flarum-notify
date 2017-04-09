@@ -262,10 +262,10 @@ System.register('moay/flarum-notify/components/HipChatSettingsModal', ['flarum/c
     }
   };
 });;
-System.register('moay/flarum-notify/components/NotifyPage', ['flarum/components/Alert', 'flarum/components/Button', 'flarum/Component', 'flarum/components/FieldSet', 'flarum/components/Page', 'flarum/components/Switch', 'moay/flarum-notify/components/GitterSettingsModal', 'moay/flarum-notify/components/HipChatSettingsModal', 'flarum/utils/saveSettings', 'moay/flarum-notify/components/SlackSettingsModal', 'moay/flarum-notify/components/TestConnectorsModal'], function (_export) {
+System.register('moay/flarum-notify/components/NotifyPage', ['flarum/components/Alert', 'flarum/components/Button', 'flarum/Component', 'flarum/components/FieldSet', 'flarum/components/Page', 'flarum/components/Switch', 'moay/flarum-notify/components/GitterSettingsModal', 'moay/flarum-notify/components/HipChatSettingsModal', 'flarum/utils/saveSettings', 'moay/flarum-notify/components/SlackSettingsModal', 'moay/flarum-notify/components/TelegramSettingsModal', 'moay/flarum-notify/components/TestConnectorsModal'], function (_export) {
   'use strict';
 
-  var Alert, Button, Component, FieldSet, Page, Switch, GitterSettingsModal, HipChatSettingsModal, saveSettings, SlackSettingsModal, TestConnectorsModal, NotifyPage;
+  var Alert, Button, Component, FieldSet, Page, Switch, GitterSettingsModal, HipChatSettingsModal, saveSettings, SlackSettingsModal, TelegramSettingsModal, TestConnectorsModal, NotifyPage;
   return {
     setters: [function (_flarumComponentsAlert) {
       Alert = _flarumComponentsAlert['default'];
@@ -287,6 +287,8 @@ System.register('moay/flarum-notify/components/NotifyPage', ['flarum/components/
       saveSettings = _flarumUtilsSaveSettings['default'];
     }, function (_moayFlarumNotifyComponentsSlackSettingsModal) {
       SlackSettingsModal = _moayFlarumNotifyComponentsSlackSettingsModal['default'];
+    }, function (_moayFlarumNotifyComponentsTelegramSettingsModal) {
+      TelegramSettingsModal = _moayFlarumNotifyComponentsTelegramSettingsModal['default'];
     }, function (_moayFlarumNotifyComponentsTestConnectorsModal) {
       TestConnectorsModal = _moayFlarumNotifyComponentsTestConnectorsModal['default'];
     }],
@@ -318,7 +320,7 @@ System.register('moay/flarum-notify/components/NotifyPage', ['flarum/components/
              *
              * @type {Array}
              */
-            this.fields = ['discussionDeletedEvent', 'gitterEnabled', 'hipChatEnabled', 'newDiscussionEvent', 'newPostEvent', 'postDeletedEvent', 'postHiddenEvent', 'slackEnabled'];
+            this.fields = ['discussionDeletedEvent', 'gitterEnabled', 'hipChatEnabled', 'telegramEnabled', 'newDiscussionEvent', 'newPostEvent', 'postDeletedEvent', 'postHiddenEvent', 'slackEnabled'];
 
             /**
              * The setting prefix.
@@ -459,6 +461,31 @@ System.register('moay/flarum-notify/components/NotifyPage', ['flarum/components/
                             type: 'button',
                             onclick: function onclick() {
                               return app.modal.show(new GitterSettingsModal());
+                            }
+                          })
+                        )
+                      ),
+                      m(
+                        'tr',
+                        null,
+                        m(
+                          'td',
+                          null,
+                          Switch.component({
+                            state: this.values.telegramEnabled(),
+                            children: 'Telegram',
+                            onchange: this.values.telegramEnabled
+                          })
+                        ),
+                        m(
+                          'td',
+                          null,
+                          Button.component({
+                            className: 'Button NotifyButton rounded',
+                            icon: 'cog',
+                            type: 'button',
+                            onclick: function onclick() {
+                              return app.modal.show(new TelegramSettingsModal());
                             }
                           })
                         )
@@ -724,6 +751,134 @@ System.register('moay/flarum-notify/components/SlackSettingsModal', ['flarum/com
         }
     };
 });;
+System.register('moay/flarum-notify/components/TelegramSettingsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/saveSettings'], function (_export) {
+  'use strict';
+
+  var Modal, Button, saveSettings, TelegramSettingsModal;
+  return {
+    setters: [function (_flarumComponentsModal) {
+      Modal = _flarumComponentsModal['default'];
+    }, function (_flarumComponentsButton) {
+      Button = _flarumComponentsButton['default'];
+    }, function (_flarumUtilsSaveSettings) {
+      saveSettings = _flarumUtilsSaveSettings['default'];
+    }],
+    execute: function () {
+      TelegramSettingsModal = (function (_Modal) {
+        babelHelpers.inherits(TelegramSettingsModal, _Modal);
+
+        function TelegramSettingsModal() {
+          babelHelpers.classCallCheck(this, TelegramSettingsModal);
+
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          babelHelpers.get(Object.getPrototypeOf(TelegramSettingsModal.prototype), 'constructor', this).apply(this, args);
+
+          this.apiKey = m.prop(app.data.settings['notify.telegram.apiKey'] || '');
+
+          this.botName = m.prop(app.data.settings['notify.telegram.botName'] || '');
+
+          this.chatId = m.prop(app.data.settings['notify.telegram.chatId'] || '');
+        }
+
+        babelHelpers.createClass(TelegramSettingsModal, [{
+          key: 'className',
+          value: function className() {
+            return 'TelegramSettingsModal Modal--small';
+          }
+        }, {
+          key: 'title',
+          value: function title() {
+            return app.translator.trans('flarum-notify.admin.telegram-modal.title');
+          }
+        }, {
+          key: 'content',
+          value: function content() {
+            return m(
+              'div',
+              { className: 'Modal-body' },
+              m(
+                'div',
+                { className: 'Form' },
+                m(
+                  'div',
+                  { className: 'Form-group' },
+                  m(
+                    'label',
+                    null,
+                    app.translator.trans('flarum-notify.admin.telegram-modal.apiKey')
+                  ),
+                  m('input', { className: 'FormControl', value: this.apiKey(), oninput: m.withAttr('value', this.apiKey) })
+                ),
+                m(
+                  'div',
+                  { className: 'Form-group' },
+                  m(
+                    'label',
+                    null,
+                    app.translator.trans('flarum-notify.admin.telegram-modal.botName')
+                  ),
+                  m('input', { className: 'FormControl', value: this.botName(), oninput: m.withAttr('value', this.botName) })
+                ),
+                m(
+                  'div',
+                  { className: 'Form-group' },
+                  m(
+                    'label',
+                    null,
+                    app.translator.trans('flarum-notify.admin.telegram-modal.chatId')
+                  ),
+                  m('input', { className: 'FormControl', value: this.chatId(), oninput: m.withAttr('value', this.chatId) })
+                ),
+                m(
+                  'p',
+                  null,
+                  app.translator.trans('flarum-notify.admin.telegram-modal.description', { 'aBot': m('a', { href: 'https://github.com/php-telegram-bot/core/blob/master/README.md#create-your-first-bot', tabindex: '-1', target: '_new' }), 'aChatId': m('a', { href: 'http://stackoverflow.com/a/38388851/160386', tabindex: '-1', target: '_new' }) })
+                ),
+                m('hr', null),
+                m(
+                  'div',
+                  { className: 'Form-group' },
+                  Button.component({
+                    type: 'submit',
+                    className: 'Button Button--primary TelegramSettingsModal-save',
+                    loading: this.loading,
+                    children: 'Save Changes'
+                  })
+                )
+              )
+            );
+          }
+        }, {
+          key: 'onsubmit',
+          value: function onsubmit(e) {
+            var _this = this;
+
+            e.preventDefault();
+
+            this.loading = true;
+
+            saveSettings({
+              'notify.telegram.apiKey': this.apiKey(),
+              'notify.telegram.botName': this.botName(),
+              'notify.telegram.chatId': this.chatId()
+            }).then(function () {
+              return _this.hide();
+            }, function () {
+              _this.loading = false;
+              m.redraw();
+            });
+          }
+        }]);
+        return TelegramSettingsModal;
+      })(Modal);
+
+      _export('default', TelegramSettingsModal);
+    }
+  };
+});;
 System.register('moay/flarum-notify/components/TestConnectorsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/lib/components/LoadingIndicator'], function (_export) {
   'use strict';
 
@@ -759,6 +914,11 @@ System.register('moay/flarum-notify/components/TestConnectorsModal', ['flarum/co
 
           this.gitter = {};
           this.gitter.webhook = m.prop(app.data.settings['notify.gitter.webhook'] || '');
+
+          this.telegram = {};
+          this.telegram.apiKey = m.prop(app.data.settings['notify.telegram.apiKey'] || '');
+          this.telegram.botName = m.prop(app.data.settings['notify.telegram.botName'] || '');
+          this.telegram.chatId = m.prop(app.data.settings['notify.telegram.chatId'] || '');
 
           this.testStatus = m.prop('Preparing...');
 
@@ -800,6 +960,9 @@ System.register('moay/flarum-notify/components/TestConnectorsModal', ['flarum/co
                 break;
               case 'gitter':
                 this.runGitterTest();
+                break;
+              case 'telegram':
+                this.runTelegramTest();
                 break;
             }
           }
@@ -853,6 +1016,24 @@ System.register('moay/flarum-notify/components/TestConnectorsModal', ['flarum/co
                   _this3.testStatus('Gitter notifications should work. A test message has been posted to your room.');
                 } else {
                   _this3.testStatus('Your webhook is invalid or Gitter could not be reached.');
+                }
+              });
+            }
+          }
+        }, {
+          key: 'runTelegramTest',
+          value: function runTelegramTest() {
+            var _this4 = this;
+
+            if (this.telegram.apiKey() === '' || this.telegram.botName() === '' || this.telegram.chatId() === '') {
+              this.testStatus('Please fill in your API key, bot name and chat ID first.');
+            } else {
+              this.testStatus('Testing...');
+              m.request({ method: "GET", url: "/api/notify/test/telegram" }).then(function (response) {
+                if (response.success === true) {
+                  _this4.testStatus('Telegram notifications should work. A test message has been posted to your room.');
+                } else {
+                  _this4.testStatus('Your credentials are invalid or Telegram could not be reached.');
                 }
               });
             }

@@ -17,6 +17,11 @@ export default class TestConnectorsModal extends Modal {
     this.gitter = {};
     this.gitter.webhook = m.prop(app.data.settings['notify.gitter.webhook'] || '');
 
+    this.telegram = {};
+    this.telegram.apiKey = m.prop(app.data.settings['notify.telegram.apiKey'] || '');
+    this.telegram.botName = m.prop(app.data.settings['notify.telegram.botName'] || '');
+    this.telegram.chatId = m.prop(app.data.settings['notify.telegram.chatId'] || '');
+
     this.testStatus = m.prop('Preparing...');
 
     this.runConnectorTest();
@@ -48,6 +53,9 @@ export default class TestConnectorsModal extends Modal {
         break;
       case 'gitter':
         this.runGitterTest();
+        break;
+      case 'telegram':
+        this.runTelegramTest();
         break;
     }
   }
@@ -104,6 +112,25 @@ export default class TestConnectorsModal extends Modal {
         else
         {
           this.testStatus('Your webhook is invalid or Gitter could not be reached.');
+        }
+      });
+    }
+  }
+
+  runTelegramTest(){
+    if(this.telegram.apiKey() === '' || this.telegram.botName() === '' || this.telegram.chatId() === ''){
+      this.testStatus('Please fill in your API key, bot name and chat ID first.');
+    }
+    else{
+      this.testStatus('Testing...');
+      m.request({method: "GET", url: "/api/notify/test/telegram"})
+      .then((response) => {
+        if(response.success === true){
+          this.testStatus('Telegram notifications should work. A test message has been posted to your room.');
+        }
+        else
+        {
+          this.testStatus('Your credentials are invalid or Telegram could not be reached.');
         }
       });
     }

@@ -1,13 +1,14 @@
 {
     "name": "manelizzard/flarum-ext-notify",
-    "description": "Get notified about forum activity in Slack, Hipchat or Gitter.",
+    "description": "Get notified about forum activity in Slack, Hipchat, Gitter or Telegram.",
     "type": "flarum-extension",
     "license": "MIT",
     "require": {
         "flarum/core": "^0.1.0-beta.6",
         "cleentfaar/slack": "^0.17",
         "gorkalaucirica/hipchat-v2-api-client": "^1",
-        "guzzlehttp/guzzle": "^6.1"
+        "guzzlehttp/guzzle": "^6.1",
+        "longman/telegram-bot": "^0.41.0"
     },
     "authors": [
         {

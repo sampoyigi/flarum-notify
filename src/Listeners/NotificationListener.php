@@ -4,6 +4,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Moay\Notify\Connectors\SlackConnector;
 use Moay\Notify\Connectors\HipChatConnector;
 use Moay\Notify\Connectors\GitterConnector;
+use Moay\Notify\Connectors\TelegramConnector;
 
 class NotificationListener
 {
@@ -43,6 +44,15 @@ class NotificationListener
             $this->settings->get('notify.gitter.webhook')
         ) {
             $connectors[] = new GitterConnector($this->settings);
+        }
+
+        // Check for Telegram
+        if ($this->settings->get('flarum-notify.telegramEnabled') &&
+            $this->settings->get('notify.telegram.apiKey') &&
+            $this->settings->get('notify.telegram.botName') &&
+            $this->settings->get('notify.telegram.chatId')
+        ) {
+            $connectors[] = new TelegramConnector($this->settings);
         }
 
         return $connectors;

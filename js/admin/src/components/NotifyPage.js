@@ -9,6 +9,7 @@ import GitterSettingsModal from 'moay/flarum-notify/components/GitterSettingsMod
 import HipChatSettingsModal from 'moay/flarum-notify/components/HipChatSettingsModal';
 import saveSettings from 'flarum/utils/saveSettings';
 import SlackSettingsModal from 'moay/flarum-notify/components/SlackSettingsModal';
+import TelegramSettingsModal from 'moay/flarum-notify/components/TelegramSettingsModal';
 import TestConnectorsModal from 'moay/flarum-notify/components/TestConnectorsModal';
 
 export default class NotifyPage extends Page {
@@ -32,6 +33,7 @@ export default class NotifyPage extends Page {
           'discussionDeletedEvent',
           'gitterEnabled',
           'hipChatEnabled',
+          'telegramEnabled',
           'newDiscussionEvent',
           'newPostEvent',
           'postDeletedEvent',
@@ -129,6 +131,23 @@ export default class NotifyPage extends Page {
                         icon: 'cog',
                         type: 'button',
                         onclick: () => app.modal.show(new GitterSettingsModal())
+                      })}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {Switch.component({
+                         state: this.values.telegramEnabled(),
+                         children: 'Telegram',
+                         onchange: this.values.telegramEnabled
+                      })}
+                    </td>
+                    <td>
+                      {Button.component({
+                        className: 'Button NotifyButton rounded',
+                        icon: 'cog',
+                        type: 'button',
+                        onclick: () => app.modal.show(new TelegramSettingsModal())
                       })}
                     </td>
                   </tr>
