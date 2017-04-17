@@ -6,6 +6,7 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use Moay\Notify\Connectors\GitterConnector;
 use Moay\Notify\Connectors\HipChatConnector;
 use Moay\Notify\Connectors\SlackConnector;
+use Moay\Notify\Connectors\TelegramConnector;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -55,6 +56,10 @@ class ConnectorTest implements ControllerInterface
             case 'gitter':
                 $gitterInstance = new GitterConnector($this->settings);
                 $return = ['success'=> $gitterInstance->works()];
+                break;
+            case 'telegram':
+                $telegramInstance = new TelegramConnector($this->settings);
+                $return = ['success'=> $telegramInstance->works()];
                 break;
             default:
                 $return = ['success'=> false, 'msg'=>'unknown'];
