@@ -11,3 +11,12 @@ Use composer to install the Notify extension:
 ```bash
 composer require manelizzard/flarum-ext-notify
 ```
+
+then also install the libraries you wants to support:
+
+```bash
+composer require cleentfaar/slack '^0.17' # for Slack
+composer require gorkalaucirica/hipchat-v2-api-client '^1' # for HipChat
+composer require guzzlehttp/guzzle '^6.1' # for Gitter
+composer require longman/telegram-bot '^0.41.0' # for Telegram
+```

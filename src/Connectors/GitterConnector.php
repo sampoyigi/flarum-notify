@@ -8,6 +8,14 @@ class GitterConnector extends Connector implements ConnectorInterface
     private $webhook = 'https://api.gitter.im/v1/';
 
     /**
+     * Check if required libraries are installed
+     * @return bool
+     */
+    public static function isAvailable() {
+        return class_exists('GuzzleHttp\Client');
+    }
+
+    /**
      * Setup method which is called on construction
      * @return void
      */

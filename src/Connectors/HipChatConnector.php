@@ -11,6 +11,14 @@ use GorkaLaucirica\HipchatAPIv2Client\Exception\RequestException;
 class HipChatConnector extends Connector implements ConnectorInterface
 {
     /**
+     * Check if required libraries are installed
+     * @return bool
+     */
+    public static function isAvailable() {
+        return class_exists('GorkaLaucirica\HipchatAPIv2Client\Client');
+    }
+
+    /**
      * Setup method which is called on construction
      * @return void
      */

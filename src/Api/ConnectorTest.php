@@ -46,20 +46,36 @@ class ConnectorTest implements ControllerInterface
 
         switch ($connector) {
             case 'slack':
-                $slackInstance = new SlackConnector($this->settings);
-                $return = ['success'=> $slackInstance->works()];
+                if (SlackConnector::isAvailable()) {
+                    $slackInstance = new SlackConnector($this->settings);
+                    $return = ['success'=> $slackInstance->works()];
+                } else {
+                    $return = ['success' => false, 'msg' => 'unavailable'];
+                }
                 break;
             case 'hipchat':
-                $hipChatInstance = new HipChatConnector($this->settings);
-                $return = ['success'=> $hipChatInstance->works()];
+                if (HipChatConnector::isAvailable()) {
+                    $hipChatInstance = new HipChatConnector($this->settings);
+                    $return = ['success'=> $hipChatInstance->works()];
+                } else {
+                    $return = ['success' => false, 'msg' => 'unavailable'];
+                }
                 break;
             case 'gitter':
-                $gitterInstance = new GitterConnector($this->settings);
-                $return = ['success'=> $gitterInstance->works()];
+                if (GitterConnector::isAvailable()) {
+                    $gitterInstance = new GitterConnector($this->settings);
+                    $return = ['success'=> $gitterInstance->works()];
+                } else {
+                    $return = ['success' => false, 'msg' => 'unavailable'];
+                }
                 break;
             case 'telegram':
-                $telegramInstance = new TelegramConnector($this->settings);
-                $return = ['success'=> $telegramInstance->works()];
+                if (TelegramConnector::isAvailable()) {
+                    $telegramInstance = new TelegramConnector($this->settings);
+                    $return = ['success'=> $telegramInstance->works()];
+                } else {
+                    $return = ['success' => false, 'msg' => 'unavailable'];
+                }
                 break;
             default:
                 $return = ['success'=> false, 'msg'=>'unknown'];

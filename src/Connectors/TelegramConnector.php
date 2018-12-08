@@ -10,6 +10,14 @@ use Longman\TelegramBot\Telegram;
 class TelegramConnector extends Connector implements ConnectorInterface
 {
     /**
+     * Check if required libraries are installed
+     * @return bool
+     */
+    public static function isAvailable() {
+        return class_exists('Longman\TelegramBot\Telegram');
+    }
+
+    /**
      * Setup method which is called on construction
      * @return void
      */
