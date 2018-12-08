@@ -86,15 +86,18 @@ export default class NotifyPage extends Page {
                   <tr>
                     <td>
                       {Switch.component({
+                         disabled: !app.data.flarumNotify.slackAvailable,
                          state: this.values.slackEnabled() || false,
                          children: 'Slack',
                          onchange: this.values.slackEnabled
                       })}
+                      <p class="unavailable-hint">{app.data.flarumNotify.slackAvailable ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
                     </td>
                     <td>
                       {Button.component({
+                        disabled: !app.data.flarumNotify.slackAvailable,
                         className: 'Button NotifyButton rounded',
-                        icon: 'fas fa-cog',
+                        icon: 'fas fa-cog fa-fw',
                         type: 'button',
                         onclick: () => app.modal.show(new SlackSettingsModal())
                       })}
@@ -103,15 +106,18 @@ export default class NotifyPage extends Page {
                   <tr>
                     <td>
                       {Switch.component({
+                         disabled: !app.data.flarumNotify.hipChatAvailable,
                          state: this.values.hipChatEnabled(),
                          children: 'Hipchat',
                          onchange: this.values.hipChatEnabled
                       })}
+                      <p class="unavailable-hint">{app.data.flarumNotify.hipChatAvailable ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
                     </td>
                     <td>
                       {Button.component({
+                        disabled: !app.data.flarumNotify.hipChatAvailable,
                         className: 'Button NotifyButton rounded',
-                        icon: 'fas fa-cog',
+                        icon: 'fas fa-cog fa-fw',
                         type: 'button',
                         onclick: () => app.modal.show(new HipChatSettingsModal())
                       })}
@@ -120,15 +126,18 @@ export default class NotifyPage extends Page {
                   <tr>
                     <td>
                       {Switch.component({
+                         disabled: !app.data.flarumNotify.gitterAvailable,
                          state: this.values.gitterEnabled(),
                          children: 'Gitter',
                          onchange: this.values.gitterEnabled
                       })}
+                      <p class="unavailable-hint">{app.data.flarumNotify.gitterAvailable ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
                     </td>
                     <td>
                       {Button.component({
+                        disabled: !app.data.flarumNotify.gitterAvailable,
                         className: 'Button NotifyButton rounded',
-                        icon: 'fas fa-cog',
+                        icon: 'fas fa-cog fa-fw',
                         type: 'button',
                         onclick: () => app.modal.show(new GitterSettingsModal())
                       })}
@@ -137,15 +146,18 @@ export default class NotifyPage extends Page {
                   <tr>
                     <td>
                       {Switch.component({
+                         disabled: !app.data.flarumNotify.telegramAvailable,
                          state: this.values.telegramEnabled(),
                          children: 'Telegram',
                          onchange: this.values.telegramEnabled
                       })}
+                      <p class="unavailable-hint">{app.data.flarumNotify.telegramAvailable ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
                     </td>
                     <td>
                       {Button.component({
+                        disabled: !app.data.flarumNotify.telegramAvailable,
                         className: 'Button NotifyButton rounded',
-                        icon: 'fas fa-cog',
+                        icon: 'fas fa-cog fa-fw',
                         type: 'button',
                         onclick: () => app.modal.show(new TelegramSettingsModal())
                       })}

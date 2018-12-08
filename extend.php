@@ -2,6 +2,7 @@
 
 use Flarum\Extend;
 use Illuminate\Contracts\Events\Dispatcher;
+use Moay\Notify\Listeners\AdminPayload;
 use Moay\Notify\Listeners\RegisterApiRoutes;
 use Moay\Notify\Listeners\DiscussionWasDeletedListener;
 use Moay\Notify\Listeners\DiscussionWasStartedListener;
@@ -21,9 +22,9 @@ return [
         // Add API routes
         $events->subscribe(RegisterApiRoutes::class);
     },
-
     (new Extend\Frontend('admin'))
         ->css(__DIR__ . '/resources/less/admin/extension.less')
-        ->js(__DIR__ . '/js/dist/admin.js'),
+        ->js(__DIR__ . '/js/dist/admin.js')
+        ->content(new AdminPayload),
     new Extend\Locales(__DIR__ . '/resources/locale'),
 ];
