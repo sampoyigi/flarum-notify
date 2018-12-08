@@ -1,6 +1,6 @@
 <?php namespace Moay\Notify\Listeners;
 
-use Flarum\Event\PostWasDeleted;
+use Flarum\Post\Event\Deleted as PostWasDeleted;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\PostWasDeletedMessage;

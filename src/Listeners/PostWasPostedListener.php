@@ -1,6 +1,6 @@
 <?php namespace moay\Notify\Listeners;
 
-use Flarum\Event\PostWasPosted;
+use Flarum\Post\Event\Posted as PostWasPosted;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\PostWasPostedMessage;

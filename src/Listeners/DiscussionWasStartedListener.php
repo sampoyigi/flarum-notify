@@ -1,6 +1,6 @@
 <?php namespace Moay\Notify\Listeners;
 
-use Flarum\Event\DiscussionWasStarted;
+use Flarum\Discussion\Event\Started as DiscussionWasStarted;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\DiscussionWasStartedMessage;
@@ -14,7 +14,7 @@ class DiscussionWasStartedListener extends NotificationListener
 
     /**
      * Sends a message via all of the enable connectors
-     * @param  PostWasPosted $event
+     * @param  DiscussionWasStarted $event
      * @return void
      */
     public function sendMessage(DiscussionWasStarted $event)

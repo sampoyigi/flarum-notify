@@ -5,12 +5,12 @@ import FieldSet from 'flarum/components/FieldSet';
 import Page from 'flarum/components/Page';
 import Switch from 'flarum/components/Switch';
 
-import GitterSettingsModal from 'moay/flarum-notify/components/GitterSettingsModal';
-import HipChatSettingsModal from 'moay/flarum-notify/components/HipChatSettingsModal';
+import GitterSettingsModal from './GitterSettingsModal';
+import HipChatSettingsModal from './HipChatSettingsModal';
 import saveSettings from 'flarum/utils/saveSettings';
-import SlackSettingsModal from 'moay/flarum-notify/components/SlackSettingsModal';
-import TelegramSettingsModal from 'moay/flarum-notify/components/TelegramSettingsModal';
-import TestConnectorsModal from 'moay/flarum-notify/components/TestConnectorsModal';
+import SlackSettingsModal from './SlackSettingsModal';
+import TelegramSettingsModal from './TelegramSettingsModal';
+import TestConnectorsModal from './TestConnectorsModal';
 
 export default class NotifyPage extends Page {
 
@@ -94,7 +94,7 @@ export default class NotifyPage extends Page {
                     <td>
                       {Button.component({
                         className: 'Button NotifyButton rounded',
-                        icon: 'cog',
+                        icon: 'fas fa-cog',
                         type: 'button',
                         onclick: () => app.modal.show(new SlackSettingsModal())
                       })}
@@ -111,7 +111,7 @@ export default class NotifyPage extends Page {
                     <td>
                       {Button.component({
                         className: 'Button NotifyButton rounded',
-                        icon: 'cog',
+                        icon: 'fas fa-cog',
                         type: 'button',
                         onclick: () => app.modal.show(new HipChatSettingsModal())
                       })}
@@ -128,7 +128,7 @@ export default class NotifyPage extends Page {
                     <td>
                       {Button.component({
                         className: 'Button NotifyButton rounded',
-                        icon: 'cog',
+                        icon: 'fas fa-cog',
                         type: 'button',
                         onclick: () => app.modal.show(new GitterSettingsModal())
                       })}
@@ -145,7 +145,7 @@ export default class NotifyPage extends Page {
                     <td>
                       {Button.component({
                         className: 'Button NotifyButton rounded',
-                        icon: 'cog',
+                        icon: 'fas fa-cog',
                         type: 'button',
                         onclick: () => app.modal.show(new TelegramSettingsModal())
                       })}
