@@ -2,6 +2,7 @@ import Alert from 'flarum/components/Alert';
 import Button from 'flarum/components/Button';
 import Component from 'flarum/Component';
 import FieldSet from 'flarum/components/FieldSet';
+import ItemList from 'flarum/utils/ItemList';
 import Page from 'flarum/components/Page';
 import Switch from 'flarum/components/Switch';
 
@@ -83,86 +84,28 @@ export default class NotifyPage extends Page {
                   {app.translator.trans('flarum-notify.admin.services.description')}
                 </div>
                 <table className="NotifyTable">
-                  <tr>
-                    <td>
-                      {Switch.component({
-                         disabled: !app.data.flarumNotify.slackAvailable,
-                         state: this.values.slackEnabled() || false,
-                         children: 'Slack',
-                         onchange: this.values.slackEnabled
-                      })}
-                      <p class="unavailable-hint">{app.data.flarumNotify.slackAvailable ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
-                    </td>
-                    <td>
-                      {Button.component({
-                        disabled: !app.data.flarumNotify.slackAvailable,
-                        className: 'Button NotifyButton rounded',
-                        icon: 'fas fa-cog fa-fw',
-                        type: 'button',
-                        onclick: () => app.modal.show(new SlackSettingsModal())
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {Switch.component({
-                         disabled: !app.data.flarumNotify.hipChatAvailable,
-                         state: this.values.hipChatEnabled(),
-                         children: 'Hipchat',
-                         onchange: this.values.hipChatEnabled
-                      })}
-                      <p class="unavailable-hint">{app.data.flarumNotify.hipChatAvailable ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
-                    </td>
-                    <td>
-                      {Button.component({
-                        disabled: !app.data.flarumNotify.hipChatAvailable,
-                        className: 'Button NotifyButton rounded',
-                        icon: 'fas fa-cog fa-fw',
-                        type: 'button',
-                        onclick: () => app.modal.show(new HipChatSettingsModal())
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {Switch.component({
-                         disabled: !app.data.flarumNotify.gitterAvailable,
-                         state: this.values.gitterEnabled(),
-                         children: 'Gitter',
-                         onchange: this.values.gitterEnabled
-                      })}
-                      <p class="unavailable-hint">{app.data.flarumNotify.gitterAvailable ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
-                    </td>
-                    <td>
-                      {Button.component({
-                        disabled: !app.data.flarumNotify.gitterAvailable,
-                        className: 'Button NotifyButton rounded',
-                        icon: 'fas fa-cog fa-fw',
-                        type: 'button',
-                        onclick: () => app.modal.show(new GitterSettingsModal())
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {Switch.component({
-                         disabled: !app.data.flarumNotify.telegramAvailable,
-                         state: this.values.telegramEnabled(),
-                         children: 'Telegram',
-                         onchange: this.values.telegramEnabled
-                      })}
-                      <p class="unavailable-hint">{app.data.flarumNotify.telegramAvailable ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
-                    </td>
-                    <td>
-                      {Button.component({
-                        disabled: !app.data.flarumNotify.telegramAvailable,
-                        className: 'Button NotifyButton rounded',
-                        icon: 'fas fa-cog fa-fw',
-                        type: 'button',
-                        onclick: () => app.modal.show(new TelegramSettingsModal())
-                      })}
-                    </td>
-                  </tr>
+                  {this.connectorItems().toArray().map(connector => (
+                    <tr>
+                      <td>
+                        {Switch.component({
+                           disabled: !app.data.flarumNotify[connector.name + 'Available'],
+                           state: this.values[connector.name + 'Enabled']() || false,
+                           children: connector.label,
+                           onchange: this.values[connector.name + 'Enabled']
+                        })}
+                        <p class="unavailable-hint">{app.data.flarumNotify[connector.name + 'Available'] ? null : app.translator.trans('flarum-notify.admin.services.unavailable', {a: <a href="https://github.com/manelizzard/flarum-notify#installation" target="_new" />})}</p>
+                      </td>
+                      <td>
+                        {Button.component({
+                          disabled: !app.data.flarumNotify[connector.name + 'Available'],
+                          className: 'Button NotifyButton rounded',
+                          icon: 'fas fa-cog fa-fw',
+                          type: 'button',
+                          onclick: () => app.modal.show(new connector.modal())
+                        })}
+                      </td>
+                    </tr>
+                  ))}
                 </table>
               </fieldset>
               <hr />
@@ -174,51 +117,17 @@ export default class NotifyPage extends Page {
                   {app.translator.trans('flarum-notify.admin.events.description')}
                 </div>
                 <table className="NotifyTable">
-                  <tr>
-                    <td>
-                      {Switch.component({
-                        state: this.values.newDiscussionEvent(),
-                        children: app.translator.trans('flarum-notify.admin.events.discussion_started'),
-                        onchange: this.values.newDiscussionEvent
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {Switch.component({
-                        state: this.values.discussionDeletedEvent(),
-                        children: app.translator.trans('flarum-notify.admin.events.discussion_deleted'),
-                        onchange: this.values.discussionDeletedEvent
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {Switch.component({
-                         state: this.values.newPostEvent(),
-                         children: app.translator.trans('flarum-notify.admin.events.post_posted'),
-                         onchange: this.values.newPostEvent
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {Switch.component({
-                         state: this.values.postDeletedEvent(),
-                         children: app.translator.trans('flarum-notify.admin.events.post_deleted'),
-                         onchange: this.values.postDeletedEvent
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {Switch.component({
-                         state: this.values.postHiddenEvent(),
-                         children: app.translator.trans('flarum-notify.admin.events.post_hidden'),
-                         onchange: this.values.postHiddenEvent
-                      })}
-                    </td>
-                  </tr>
+                  {this.eventItems().toArray().map(event => (
+                    <tr>
+                      <td>
+                        {Switch.component({
+                          state: this.values[event.name](),
+                          children: event.label,
+                          onchange: this.values[event.name]
+                        })}
+                      </td>
+                    </tr>
+                  ))}
                 </table>
               </fieldset>
               <hr />
@@ -232,6 +141,67 @@ export default class NotifyPage extends Page {
           </form>
         </div>
       );
+  }
+
+  connectorItems() {
+    const items = new ItemList();
+
+    items.add('slack', {
+      name: 'slack',
+      label: 'Slack',
+      modal: SlackSettingsModal,
+    });
+
+    items.add('hipChat', {
+      name: 'hipChat',
+      label: 'HipChat',
+      modal: HipChatSettingsModal,
+    });
+
+    items.add('gitter', {
+      name: 'gitter',
+      label: 'Gitter',
+      modal: GitterSettingsModal,
+    });
+
+    items.add('telegram', {
+      name: 'telegram',
+      label: 'Telegram',
+      modal: TelegramSettingsModal,
+    });
+
+    return items;
+  }
+
+  eventItems() {
+    const items = new ItemList();
+
+    items.add('newDiscussionEvent', {
+      name: 'newDiscussionEvent',
+      label: app.translator.trans('flarum-notify.admin.events.discussion_started')
+    });
+
+    items.add('discussionDeletedEvent', {
+      name: 'discussionDeletedEvent',
+      label: app.translator.trans('flarum-notify.admin.events.discussion_deleted')
+    });
+
+    items.add('newPostEvent', {
+      name: 'newPostEvent',
+      label: app.translator.trans('flarum-notify.admin.events.post_posted')
+    });
+
+    items.add('postDeletedEvent', {
+      name: 'postDeletedEvent',
+      label: app.translator.trans('flarum-notify.admin.events.post_deleted')
+    });
+
+    items.add('postHiddenEvent', {
+      name: 'postHiddenEvent',
+      label: app.translator.trans('flarum-notify.admin.events.post_hidden')
+    });
+
+    return items;
   }
 
   onsubmit(e) {
