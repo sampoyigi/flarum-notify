@@ -1,6 +1,6 @@
 <?php namespace Moay\Notify\Listeners;
 
-use Flarum\Event\DiscussionWasDeleted;
+use Flarum\Discussion\Event\Deleted as DiscussionWasDeleted;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\DiscussionWasDeletedMessage;
@@ -14,7 +14,7 @@ class DiscussionWasDeletedListener extends NotificationListener
 
     /**
      * Sends a message via all of the enable connectors
-     * @param  PostWasPosted $event
+     * @param  DiscussionWasDeleted $event
      * @return void
      */
     public function sendMessage(DiscussionWasDeleted $event)

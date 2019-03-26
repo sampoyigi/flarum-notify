@@ -5,6 +5,7 @@ flarum-notify:
     services:
       title: Notification services
       description: Choose which services should be notified when there is something to notify you about.
+      unavailable: This connector is currently not available; if you want to use it, please follow the <a>installation instructions</a>.
     events:
       title: Notification events
       description: Choose which events should trigger a notification. Send notifications, when

@@ -1,6 +1,6 @@
 <?php namespace Moay\Notify\Listeners;
 
-use Flarum\Event\PostWasHidden;
+use Flarum\Post\Event\Hidden as PostWasHidden;
 use Illuminate\Contracts\Events\Dispatcher;
 use Moay\Notify\Listeners\NotificationListener;
 use Moay\Notify\Messages\PostWasHiddenMessage;

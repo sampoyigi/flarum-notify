@@ -10,6 +10,14 @@ use Moay\Notify\Interfaces\ConnectorInterface;
 class SlackConnector extends Connector implements ConnectorInterface
 {
     /**
+     * Check if required libraries are installed
+     * @return bool
+     */
+    public static function isAvailable() {
+        return class_exists('CL\Slack\Transport\ApiClient');
+    }
+
+    /**
      * Setup method which is called on construction
      * @return void
      */

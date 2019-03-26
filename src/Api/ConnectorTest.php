@@ -1,16 +1,17 @@
 <?php namespace Moay\Notify\Api;
 
-use Flarum\Http\Controller\ControllerInterface;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Moay\Notify\Connectors\GitterConnector;
 use Moay\Notify\Connectors\HipChatConnector;
 use Moay\Notify\Connectors\SlackConnector;
 use Moay\Notify\Connectors\TelegramConnector;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-class ConnectorTest implements ControllerInterface
+class ConnectorTest implements RequestHandlerInterface
 {
     /**
      * @var Dispatcher
@@ -36,9 +37,9 @@ class ConnectorTest implements ControllerInterface
 
     /**
      * @param ServerRequestInterface $request
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
-    public function handle(ServerRequestInterface $request)
+    public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $params = $request->getQueryParams();
 
@@ -46,20 +47,36 @@ class ConnectorTest implements ControllerInterface
 
         switch ($connector) {
             case 'slack':
-                $slackInstance = new SlackConnector($this->settings);
-                $return = ['success'=> $slackInstance->works()];
+                if (SlackConnector::isAvailable()) {
+                    $slackInstance = new SlackConnector($this->settings);
+                    $return = ['success'=> $slackInstance->works()];
+                } else {
+                    $return = ['success' => false, 'msg' => 'unavailable'];
+                }
                 break;
             case 'hipchat':
-                $hipChatInstance = new HipChatConnector($this->settings);
-                $return = ['success'=> $hipChatInstance->works()];
+                if (HipChatConnector::isAvailable()) {
+                    $hipChatInstance = new HipChatConnector($this->settings);
+                    $return = ['success'=> $hipChatInstance->works()];
+                } else {
+                    $return = ['success' => false, 'msg' => 'unavailable'];
+                }
                 break;
             case 'gitter':
-                $gitterInstance = new GitterConnector($this->settings);
-                $return = ['success'=> $gitterInstance->works()];
+                if (GitterConnector::isAvailable()) {
+                    $gitterInstance = new GitterConnector($this->settings);
+                    $return = ['success'=> $gitterInstance->works()];
+                } else {
+                    $return = ['success' => false, 'msg' => 'unavailable'];
+                }
                 break;
             case 'telegram':
-                $telegramInstance = new TelegramConnector($this->settings);
-                $return = ['success'=> $telegramInstance->works()];
+                if (TelegramConnector::isAvailable()) {
+                    $telegramInstance = new TelegramConnector($this->settings);
+                    $return = ['success'=> $telegramInstance->works()];
+                } else {
+                    $return = ['success' => false, 'msg' => 'unavailable'];
+                }
                 break;
             default:
                 $return = ['success'=> false, 'msg'=>'unknown'];
