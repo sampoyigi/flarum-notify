@@ -13,7 +13,6 @@
         "longman/telegram-bot": "Telegram support"
     },
     "conflict": {
-        "cleentfaar/slack": "< 0.17 || >= 0.18",
         "gorkalaucirica/hipchat-v2-api-client": "< 1 || >= 2",
         "guzzlehttp/guzzle": "< 6.1 || >= 7.0",
         "longman/telegram-bot": "< 0.41.0 || >= 0.42"
